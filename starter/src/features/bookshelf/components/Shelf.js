@@ -1,5 +1,5 @@
 //imports
-import Book from './Book'
+import Book from '../../../shared/components/Book.js';
 const Shelf = ({shelfName}) => {
   return (
     <div>

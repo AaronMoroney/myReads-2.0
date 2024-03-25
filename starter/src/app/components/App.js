@@ -1,11 +1,11 @@
-import { Link, Route, Routes} from 'react-router-dom'
+import { Link, Route, Routes, useLocation} from 'react-router-dom'
 
 import '../../App.css';
 import Library from '../../widgets/Library/components/Library.js';
 import Search from '../../features/search/components/Search.js';
 
 function App() {
-  // const [showSearchPage, setShowSearchpage] = useState(false);
+  const location = useLocation();
   return (
     <div className="app">
       <Routes>
@@ -29,13 +29,16 @@ function App() {
               <Search />
           }/>
       </Routes>
-      <div className="open-search">
-        <Link
-          to="/search"
-        >
-        Add a book
-        </Link>
-      </div> 
+      {
+        location.pathname === '/' && (
+          <div className="open-search">
+            <Link
+              to="/search"
+            >
+              Add a book
+            </Link>
+          </div> 
+      )}
     </div>
   );
 }
