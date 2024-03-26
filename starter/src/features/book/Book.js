@@ -7,7 +7,10 @@ const Book = ({ properties }) => {
     return (
         <>
             <div className="book">
-                <Link to={`/books/${properties.id}`}>
+                <Link 
+                    to={`/books/${properties.id}`} 
+                    state={{properties}}
+                >
                     <div className="book-top">
                         <div
                             className="book-cover"

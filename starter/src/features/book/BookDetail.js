@@ -2,18 +2,10 @@ import { useLocation } from 'react-router-dom';
 import Selector from './Selector'
 
 import '../../App.css'
-import { useBookShelf } from '../../shared/hooks/useBookshelf.js'
-import { useEffect } from 'react';
 
 const BookDetail = () => {
     const location = useLocation();
-    const { onGetSingle, single } = useBookShelf();
-
-    const id = location.pathname.substring(7);
-
-    useEffect(() => {
-        onGetSingle(id);
-    }, [onGetSingle, id]);
+    const properties = location.state?.properties;
 
     return (
         <>
@@ -24,7 +16,7 @@ const BookDetail = () => {
                         style={{
                         width: 128,
                         height: 193,
-                        backgroundImage: single.imageLinks ? `url("${single.imageLinks.smallThumbnail}")` : 'none'
+                        backgroundImage: `url("${properties.imageLinks.smallThumbnail}")`
                         }}
                     /> 
                     <div>
@@ -32,17 +24,17 @@ const BookDetail = () => {
                     </div>       
                 </div>
                 <div className="book-title">
-                    {single.title}
+                    {properties.title}
                 </div>
                 <div className="book-authors">
-                    {single.authors}
+                    {properties.authors}
                 </div>
                 {/* some other info */}
                 <div className="book-authors">
-                    {single.pageCount} pages
+                    {properties.pageCount} pages
                 </div>
                 <div className="book-authors">
-                    published by {single.publisher}
+                    published by {properties.publisher}
                 </div>
             </div>    
         </>
