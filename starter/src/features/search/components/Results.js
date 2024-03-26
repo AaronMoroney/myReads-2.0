@@ -1,5 +1,6 @@
 import React from 'react'
 
+import '../../../App.css'
 import Book from '../../../shared/components/Book'
 
 const Results = ({result, errorState, query}) => {
@@ -12,7 +13,7 @@ const Results = ({result, errorState, query}) => {
             <p>due to API Limitations, there are no results for your '{query}' query</p> :
             (result.map(res => 
               <Book 
-              res={res} 
+              properties={res} 
               key={res.id}/>
             ))
             }
