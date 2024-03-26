@@ -1,5 +1,5 @@
 //imports
-import Book from '../../../shared/components/Book.js';
+import Book from '../../book/Book.js';
 
 //dummy obj
 const defaultBook = {

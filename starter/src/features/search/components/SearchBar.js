@@ -1,17 +1,8 @@
 import { Link } from 'react-router-dom'
-import { useEffect } from 'react'
 
 import '../../../App.css'
-import Results from './Results.js';
-import { useBookShelf } from '../../../shared/hooks/useBookshelf.js';
 
-const Search = () => {
-  const { onSearch, setQuery, result, errorState, query  } = useBookShelf();
-
-  useEffect(() => {
-    onSearch(query);
-  }, [onSearch, query]);
-  
+const SearchBar = ({setQuery}) => {
   return (
     <>
       <div className="search-books">
@@ -29,14 +20,9 @@ const Search = () => {
             />
           </div>
         </div>
-          <Results 
-            query={query}
-            result={result}
-            errorState={errorState}
-          />
       </div>
     </>
   )
 }
 
-export default Search
+export default SearchBar
