@@ -1,5 +1,6 @@
 import Selector from './Selector'
-const Book = () => {
+const Book = ({res}) => {
+    console.log(res);
     return (
         <>
             <div className="book">

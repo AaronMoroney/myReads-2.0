@@ -9,26 +9,33 @@ function App() {
   return (
     <div className="app">
       <Routes>
+
         <Route 
           exact path='/' 
             element={
-            <div className="list-books">
-              <div className="list-books-title">
-                <h1>MyReads</h1>
-              </div>
-              <div className="list-books-content">
-                <div>
-                  <Library />
+              <div className="list-books">
+                <div className="list-books-title">
+                  <h1>MyReads</h1>
                 </div>
-              </div>
-            </div> 
-          }/>
+                <div className="list-books-content">
+                  <div>
+                    <Library />
+                  </div>
+                </div>
+              </div> 
+          }
+        />
+
         <Route 
           exact path='/search' 
             element={
               <Search />
-          }/>
+          }
+        />
+
       </Routes>
+
+      {/* button to go to the search page */}
       {
         location.pathname === '/' && (
           <div className="open-search">
@@ -38,7 +45,9 @@ function App() {
               Add a book
             </Link>
           </div> 
-      )}
+        )
+      }
+      
     </div>
   );
 }
