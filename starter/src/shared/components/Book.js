@@ -1,6 +1,5 @@
 import Selector from './Selector'
-const Book = ({res}) => {
-    console.log(res);
+const Book = ({properties}) => {
     return (
         <>
             <div className="book">
@@ -10,14 +9,19 @@ const Book = ({res}) => {
                     style={{
                     width: 128,
                     height: 193,
-                    // backgroundImage
+                    backgroundImage:
+                    `url("${properties.imageLinks.smallThumbnail}")`
                     }}
                 >  
                 </div>
                     <Selector />
                 </div>
-                <div className="book-title"></div>
-                <div className="book-authors"></div>
+                <div className="book-title">
+                    {properties.title}
+                </div>
+                <div className="book-authors">
+                    {properties.authors}
+                </div>
             </div>
         </>
     )

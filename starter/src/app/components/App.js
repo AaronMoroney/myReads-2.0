@@ -9,7 +9,7 @@ function App() {
   return (
     <div className="app">
       <Routes>
-
+        {/* home route */}
         <Route 
           exact path='/' 
             element={
@@ -25,14 +25,13 @@ function App() {
               </div> 
           }
         />
-
+        {/* search route */}
         <Route 
           exact path='/search' 
             element={
               <Search />
           }
-        />
-
+        /> 
       </Routes>
 
       {/* button to go to the search page */}
@@ -47,7 +46,7 @@ function App() {
           </div> 
         )
       }
-      
+
     </div>
   );
 }
