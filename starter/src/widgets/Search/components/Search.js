@@ -5,23 +5,27 @@ import Results from '../../../features/search/components/Results'
 import { useBookShelf } from '../../../shared/hooks/useBookshelf.js';
 
 const Search = () => {
-    const { onSearch, setQuery, result, errorState, query  } = useBookShelf();
-
+    const { onSearch, setQuery, result, errorState, query, onQueryType } = useBookShelf();
+   
+    //working
+    const handleInputChange = (e) => {
+        onQueryType(e);
+    }
+    
     useEffect(() => {
-        onSearch(query);
-    }, [onSearch, query]);
+       onSearch(query);
+    },[onSearch, query]);
 
     return (
         <>
             <SearchBar
                 setQuery={setQuery}
-                query={query}
+                handleInputChange={handleInputChange}
             />
             <Results
-                query={query}
                 result={result}
                 errorState={errorState}
-            />
+            /> 
         </>
     )
 }

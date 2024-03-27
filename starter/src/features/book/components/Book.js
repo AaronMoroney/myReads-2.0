@@ -1,31 +1,31 @@
 import { Link } from 'react-router-dom'
 
 import Selector from './Selector'
+import '../../../App.css';
 
-import '../../App.css'
 const Book = ({ properties }) => {
     return (
         <>
             <div className="book">
+                <div className="book-top">
                 <Link 
                     to={`/books/${properties.id}`} 
                     state={{properties}}
                 >
-                    <div className="book-top">
-                        <div
-                            className="book-cover"
-                            style={{
-                            width: 128,
-                            height: 193,
-                            backgroundImage:
-                                `url("${properties.imageLinks.smallThumbnail}")`
-                            }}
-                        /> 
-                        <div>
-                            <Selector />
-                        </div>       
-                    </div>
+                    <div
+                        className="book-cover"
+                        style={{
+                        width: 128,
+                        height: 193,
+                        backgroundImage:
+                            `url("${properties.imageLinks.smallThumbnail}")`
+                        }}
+                    /> 
                 </Link>
+                <div>
+                    <Selector />
+                </div>       
+                </div>
                 <div className="book-title">
                     {properties.title}
                 </div>
