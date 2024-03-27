@@ -1,12 +1,7 @@
-import { useLocation } from 'react-router-dom';
 import Selector from './Selector'
 
-import '../../App.css'
-
-const BookDetail = () => {
-    const location = useLocation();
-    const properties = location.state?.properties;
-
+import '../../../App.css'
+const BookDetail = ({ properties }) => {
     return (
         <>
             <div className="book">
@@ -14,9 +9,9 @@ const BookDetail = () => {
                     <div
                         className="book-cover"
                         style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage: `url("${properties.imageLinks.smallThumbnail}")`
+                            width: 128,
+                            height: 193,
+                            backgroundImage: `url("${properties.imageLinks.smallThumbnail}")`
                         }}
                     /> 
                     <div>

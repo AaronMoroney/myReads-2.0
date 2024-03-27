@@ -2,19 +2,21 @@ import { Link } from 'react-router-dom'
 
 import '../../../App.css'
 
-const SearchBar = ({setQuery}) => {
+const SearchBar = ({handleInputChange}) => {
   return (
     <>
       <div className="search-books">
         <div className="search-books-bar">
-          <Link to='/'
+          <Link 
+            onClick={() => localStorage.removeItem('storedQuery')}
+            to='/'
             className="close-search"
           >
             Close
           </Link>
           <div className="search-books-input-wrapper">
             <input
-              onChange={e => setQuery(e.target.value)}
+              onChange={handleInputChange}
               type="text"
               placeholder="Search by title, author, or ISBN"
             />
