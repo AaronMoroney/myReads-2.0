@@ -6,7 +6,7 @@ import { useBookSelector } from '../../../shared/hooks/useBookSelector'
 import { getAll } from '../../../BooksAPI';
 
 const Selector = ({ book, shelf }) => {
-    const { setShelfState } = useContext(SelectorContext);
+    const { setShelfState, shelfState } = useContext(SelectorContext);
     const { onUpdateSelector } = useBookSelector();
 
     const [stageUpdate, setStageUpdate] = useState('')
@@ -15,12 +15,17 @@ const Selector = ({ book, shelf }) => {
         setStageUpdate(e.target.value);
     };
 
+    /*
+    ** When I moved this to a custom hook location, it was causing several rerenders
+    ** Refactor later after project completion
+    */
+
     useEffect(() => {
         const updateShelf = async () => {
           try {
             await onUpdateSelector(book, stageUpdate);
             let result = await getAll();
-            setShelfState(result); // This updates the context and triggers a re-render
+            setShelfState(result); 
           } catch (error) {
             console.error('Error updating shelf:', error);
           }
@@ -29,13 +34,14 @@ const Selector = ({ book, shelf }) => {
         if (stageUpdate) {
           updateShelf();
         }
-      }, [book, stageUpdate, onUpdateSelector, setShelfState]); // Updated dependencies
+    }, [book, stageUpdate, onUpdateSelector, setShelfState]);
 
+    const matchingBook = shelfState.find(bookOnShelf => bookOnShelf.id === book.id);
     return (
         <>
             <div className="book-shelf-changer">
                 <select 
-                    value={shelf}
+                    value={matchingBook ? matchingBook.shelf : 'none'}
                     onChange={handleChange}
                 >
                     <option value="none">
@@ -57,12 +63,3 @@ const Selector = ({ book, shelf }) => {
 } 
 
 export default Selector
-
-// const handleChange = async (e) => {
-//     try {
-//         const updatedBook = await onUpdateSelector(book, e.target.value);
-//         console.log(updatedBook);
-//     } catch (error) {
-//         console.error('Error updating shelf:', error);
-//     }
-// };

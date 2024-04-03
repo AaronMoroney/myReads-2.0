@@ -4,6 +4,16 @@ import '../../../App.css'
 import { Book } from '../../book'
 
 const Results = ({result, errorState}) => {
+  
+
+  /*
+  ** read the state from the context
+  ** if result exists in shelfState, 
+  ** pass along the selection value as a prop
+  ** use the value in the selector
+  ** if not, default the value to not selected
+  */
+
   return (
     <>
       <div className="search-books-results">
@@ -11,10 +21,10 @@ const Results = ({result, errorState}) => {
           {errorState ? 
           <p>due to API Limitations, there are no results for your query</p> 
           :
-          (result.map(res => 
+          (result.map(book => 
             <Book 
-              properties={res} 
-              key={res.id}
+              properties={book} 
+              key={book.id}
             />
           ))
           }

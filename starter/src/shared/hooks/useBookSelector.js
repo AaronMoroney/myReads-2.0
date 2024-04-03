@@ -1,9 +1,8 @@
 import {useCallback, useMemo,useState } from 'react'
-
 import { update } from '../../BooksAPI';
-export function useBookSelector() {
 
-   const [stageUpdate, setStageUpdate] = useState('');
+export function useBookSelector() {
+  const [stageUpdate, setStageUpdate] = useState('');
 
   const onUpdateSelector = useCallback(async (bookId, shelf) => {
     await update(bookId, shelf)
@@ -15,7 +14,6 @@ export function useBookSelector() {
  return useMemo (
     () => ({
       onUpdateSelector,
-
       setStageUpdate, 
       stageUpdate
     }), 
