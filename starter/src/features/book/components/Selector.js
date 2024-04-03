@@ -4,6 +4,7 @@ import '../../../App.css'
 import { SelectorContext } from '../context/SelectorContext.js';
 import { useBookSelector } from '../../../shared/hooks/useBookSelector.js'
 import { getAll } from '../../../BooksAPI.js';
+import Spinner from '../../../shared/ui/components/Spinner.js';
 
 const Selector = ({ book, shelf }) => {
     const { shelfState, setShelfState } = useContext(SelectorContext);
@@ -38,7 +39,7 @@ const Selector = ({ book, shelf }) => {
     const matchingBook = shelfState.find(bookOnShelf => bookOnShelf.id === book.id);
 
     if (isLoading) {
-        return <div>Loading...</div>; // Or any other loading indicator
+        return <Spinner/>; 
     }
 
     return (
