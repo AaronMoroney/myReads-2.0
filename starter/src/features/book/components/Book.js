@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import Selector from './Selector'
 import '../../../App.css';
+import Selector from './Selector'
 
 const Book = ({ properties }) => {
     return (
@@ -23,7 +23,10 @@ const Book = ({ properties }) => {
                     /> 
                 </Link>
                 <div>
-                    <Selector />
+                    <Selector 
+                        book={properties}
+                        shelf={properties.shelf}
+                    />
                 </div>       
                 </div>
                 <div className="book-title">
