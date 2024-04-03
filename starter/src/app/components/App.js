@@ -12,7 +12,7 @@ function App() {
   const [shelfState, setShelfState] = useState([]);
 
   /*
-  *  Runs on component app first paint only 
+  *  Effect Runs on component app first paint only 
   */ 
  
   useEffect(() => {

@@ -7,7 +7,8 @@ import { getAll } from '../../../BooksAPI.js';
 
 const Selector = ({ book, shelf }) => {
     const { shelfState, setShelfState } = useContext(SelectorContext);
-    const [ stageUpdate, setStageUpdate ] = useState('')
+    const [ stageUpdate, setStageUpdate ] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
 
     const { onUpdateSelector } = useBookSelector();
 
@@ -18,20 +19,27 @@ const Selector = ({ book, shelf }) => {
     useEffect(() => {
         const updateShelf = async () => {
           try {
+            setIsLoading(true); // Start loading
             await onUpdateSelector(book, stageUpdate);
             let result = await getAll();
             setShelfState(result); 
           } catch (error) {
             console.error('Error updating shelf:', error);
+          } finally {
+            setIsLoading(false)
           }
         };
 
         if (stageUpdate) {
           updateShelf();
         }
-    }, [book, stageUpdate, onUpdateSelector, setShelfState]);
-
+    }, [book, shelf, onUpdateSelector, stageUpdate, setShelfState]);
+   
     const matchingBook = shelfState.find(bookOnShelf => bookOnShelf.id === book.id);
+
+    if (isLoading) {
+        return <div>Loading...</div>; // Or any other loading indicator
+    }
 
     return (
         <>
