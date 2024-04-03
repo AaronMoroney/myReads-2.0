@@ -6,7 +6,7 @@ import { useSearch } from '../../../widgets/Search/hooks/useSearch'
 
 const Search = () => {
     const { onSearch, setQuery, result, errorState, query, onQueryType } = useSearch();
-    //working
+
     const handleInputChange = (e) => {
         onQueryType(e);
     }

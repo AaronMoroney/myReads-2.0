@@ -15,7 +15,10 @@ const BookDetail = ({ properties }) => {
                         }}
                     /> 
                     <div>
-                        <Selector />
+                        <Selector 
+                            book={properties}
+                            shelf={properties.shelf}
+                        />
                     </div>       
                 </div>
                 <div className="book-title">

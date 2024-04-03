@@ -1,24 +1,19 @@
 import { useContext, useEffect, useState } from 'react';
 
 import '../../../App.css'
-import { SelectorContext } from '../../../features/book/context/SelectorContext.js';
-import { useBookSelector } from '../../../shared/hooks/useBookSelector'
-import { getAll } from '../../../BooksAPI';
+import { SelectorContext } from '../context/SelectorContext.js';
+import { useBookSelector } from '../../../shared/hooks/useBookSelector.js'
+import { getAll } from '../../../BooksAPI.js';
 
 const Selector = ({ book, shelf }) => {
-    const { setShelfState, shelfState } = useContext(SelectorContext);
-    const { onUpdateSelector } = useBookSelector();
+    const { shelfState, setShelfState } = useContext(SelectorContext);
+    const [ stageUpdate, setStageUpdate ] = useState('')
 
-    const [stageUpdate, setStageUpdate] = useState('')
+    const { onUpdateSelector } = useBookSelector();
 
     const handleChange = async (e) => {
         setStageUpdate(e.target.value);
     };
-
-    /*
-    ** When I moved this to a custom hook location, it was causing several rerenders
-    ** Refactor later after project completion
-    */
 
     useEffect(() => {
         const updateShelf = async () => {
@@ -30,13 +25,14 @@ const Selector = ({ book, shelf }) => {
             console.error('Error updating shelf:', error);
           }
         };
-    
+
         if (stageUpdate) {
           updateShelf();
         }
     }, [book, stageUpdate, onUpdateSelector, setShelfState]);
 
     const matchingBook = shelfState.find(bookOnShelf => bookOnShelf.id === book.id);
+
     return (
         <>
             <div className="book-shelf-changer">
