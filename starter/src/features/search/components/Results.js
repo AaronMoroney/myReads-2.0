@@ -4,15 +4,6 @@ import '../../../App.css'
 import { Book } from '../../book'
 
 const Results = ({result, errorState}) => {
-  
-
-  /*
-  ** read the state from the context
-  ** if result exists in shelfState, 
-  ** pass along the selection value as a prop
-  ** use the value in the selector
-  ** if not, default the value to not selected
-  */
 
   return (
     <>

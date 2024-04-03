@@ -11,6 +11,10 @@ import { getAll } from '../../BooksAPI.js';
 function App() {
   const [shelfState, setShelfState] = useState([]);
 
+  /*
+  *  Effect Runs on component app first paint only 
+  */ 
+ 
   useEffect(() => {
     async function fetchData() {
       let result = await getAll();

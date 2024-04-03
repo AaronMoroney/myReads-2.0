@@ -2,7 +2,6 @@
 import { Book } from '../../book/';
 
 const Shelf = ({ shelfName, properties }) => {
-  //properties is a {} book shelf object
   return (
     <div>
       <div className="bookshelf">
