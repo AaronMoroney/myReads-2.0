@@ -1,12 +1,11 @@
 import { useEffect } from 'react';
 
-import SearchBar from '../../../features/search/components/SearchBar'
-import Results from '../../../features/search/components/Results'
-import { useBookShelf } from '../../../shared/hooks/useBookshelf.js';
+import { SearchBar } from '../../../features/search'
+import { Results } from '../../../features/search'
+import { useSearch } from '../../../widgets/Search/hooks/useSearch'
 
 const Search = () => {
-    const { onSearch, setQuery, result, errorState, query, onQueryType } = useBookShelf();
-   
+    const { onSearch, setQuery, result, errorState, query, onQueryType } = useSearch();
     //working
     const handleInputChange = (e) => {
         onQueryType(e);

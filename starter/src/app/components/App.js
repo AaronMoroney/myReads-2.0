@@ -1,19 +1,43 @@
 import { Route, Routes} from 'react-router-dom'
+import { useEffect, useState } from 'react';
 
 import '../../App.css';
-import Library from '../../widgets/Library/components/Library.js';
-import Search from '../../widgets/Search/components/Search.js'
-import SingleBook from '../../widgets/SingleBook/components/SingleBook.js';
+import { SelectorContext } from '../../features/book/context/SelectorContext.js';
+import  Library  from '../../widgets/Library/components/Library.js';
+import  Search from '../../widgets/Search/components/Search.js'
+import  SingleBook  from '../../widgets/SingleBook/components/SingleBook.js';
+import { getAll } from '../../BooksAPI.js';
 
 function App() {
+  const [shelfState, setShelfState] = useState([]);
+
+  useEffect(() => {
+    async function fetchData() {
+      let result = await getAll();
+      setShelfState(result);
+    }
+    fetchData();
+  }, []);
+
   return (
-    <div className="app">
-      <Routes>
-        <Route exact path='/' element={<Library />}/>
-        <Route exact path='/search' element={<Search />}/> 
-        <Route exact path='/books/:id' element={<SingleBook />}/>
-      </Routes>
-    </div>
+    <SelectorContext.Provider value={{shelfState, setShelfState}}>
+      <div className="app">
+        <Routes>
+          <Route 
+            exact path='/' 
+            element={<Library />}
+          />
+          <Route 
+            exact path='/search' 
+            element={<Search />}
+          /> 
+          <Route 
+            exact path='/books/:id' 
+            element={<SingleBook />}
+          />
+        </Routes>
+      </div>
+    </SelectorContext.Provider>
   );
 }
 

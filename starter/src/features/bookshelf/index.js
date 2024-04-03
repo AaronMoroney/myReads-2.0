@@ -1,0 +1,1 @@
+export { default as Shelf } from './components/Shelf';

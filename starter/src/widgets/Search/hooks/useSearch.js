@@ -1,11 +1,10 @@
 import {useState, useCallback, useMemo } from 'react'
 
-import { search, get } from '../../BooksAPI';
+import { search } from '../../../BooksAPI';
 
-export function useBookShelf() {
+export function useSearch() {
   const [query, setQuery] = useState(localStorage.getItem('storedQuery')) //initialised with ''
   const [result, setResult] = useState([]);
-  const [single, setSingle] = useState([]);
   const [errorState, setErrorState] = useState(false);
 
   const onQueryType = useCallback((param) => {
@@ -38,26 +37,15 @@ export function useBookShelf() {
     }
   },[query])
 
-  const onGetSingle = useCallback(async(id) => {
-    try {
-      const data = await get(id);
-      setSingle(data);
-    } catch(error) {
-      console.error('error', Error);
-    }
-  }, []);
-
  return useMemo (
     () => ({
         onSearch, 
-        onGetSingle,
         onQueryType,
         setQuery, 
-        single,
         result, 
         errorState, 
         query, 
     }), 
-    [onSearch, setQuery, onGetSingle, onQueryType, single, result, errorState, query ]
+    [onSearch, setQuery, onQueryType, result, errorState, query ]
   ) 
 }

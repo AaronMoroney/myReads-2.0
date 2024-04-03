@@ -2,8 +2,8 @@ import React from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 import '../../../App.css';
-import BookDetail from '../../../features/book/components/BookDetail'
-import ActionButton from '../../../shared/ui/FAB/ActionButton';
+import { BookDetail } from '../../../features/book'
+import { ActionButton } from '../../../shared/ui';
 
 const SingleBook = () => {
   const navigate = useNavigate();

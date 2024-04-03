@@ -1,7 +1,7 @@
 import React from 'react'
 
 import '../../../App.css'
-import Book from '../../book/components/Book'
+import { Book } from '../../book'
 
 const Results = ({result, errorState}) => {
   return (
