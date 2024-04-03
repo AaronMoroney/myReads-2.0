@@ -1,18 +1,35 @@
-import { useEffect } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import '../../../App.css'
+import { SelectorContext } from '../../../features/book/context/SelectorContext.js';
 import { useBookSelector } from '../../../shared/hooks/useBookSelector'
+import { getAll } from '../../../BooksAPI';
 
 const Selector = ({ book, shelf }) => {
-    const { setStageUpdate, updateShelf } = useBookSelector();
+    const { setShelfState } = useContext(SelectorContext);
+    const { onUpdateSelector } = useBookSelector();
+
+    const [stageUpdate, setStageUpdate] = useState('')
 
     const handleChange = async (e) => {
         setStageUpdate(e.target.value);
     };
 
     useEffect(() => {
-        updateShelf(book);
-    },[ book, updateShelf ]);
+        const updateShelf = async () => {
+          try {
+            await onUpdateSelector(book, stageUpdate);
+            let result = await getAll();
+            setShelfState(result); // This updates the context and triggers a re-render
+          } catch (error) {
+            console.error('Error updating shelf:', error);
+          }
+        };
+    
+        if (stageUpdate) {
+          updateShelf();
+        }
+      }, [book, stageUpdate, onUpdateSelector, setShelfState]); // Updated dependencies
 
     return (
         <>
@@ -39,26 +56,13 @@ const Selector = ({ book, shelf }) => {
     )
 } 
 
-export default Selector;
+export default Selector
 
-    // import { SelectorContext } from '../../../features/book/context/SelectorContext.js'; 
-
-    // import { getAll } from '../../../BooksAPI.js';
-
-    // const { setShelfState } = useContext(SelectorContext);
-
-    // useEffect(() => {
-    //     const updateShelf = async () => {
-    //       try {
-    //         await onUpdateSelector(book, stageUpdate);
-    //         let result = await getAll();
-    //         setShelfState(result); 
-    //       } catch (error) {
-    //         console.error('Error updating shelf:', error);
-    //       }
-    //     };
-    
-    //     if (stageUpdate) {
-    //       updateShelf();
-    //     }
-    //   }, [book, stageUpdate, onUpdateSelector, setShelfState]); // Updated dependencies
+// const handleChange = async (e) => {
+//     try {
+//         const updatedBook = await onUpdateSelector(book, e.target.value);
+//         console.log(updatedBook);
+//     } catch (error) {
+//         console.error('Error updating shelf:', error);
+//     }
+// };
