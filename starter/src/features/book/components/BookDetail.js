@@ -1,7 +1,19 @@
-import Selector from './Selector'
+import { useState } from 'react';
 
 import '../../../App.css'
+import Alert from '../../alert/Alert';
+import Selector from './Selector'
+
 const BookDetail = ({ properties }) => {
+    const [isVisible, setIsVisible] = useState('');
+
+    const showAlert = () => {
+        setIsVisible(true);
+        setTimeout(() => {
+            setIsVisible(false);
+        }, 3000);
+    }
+
     return (
         <>
             <div className="book">
@@ -18,6 +30,7 @@ const BookDetail = ({ properties }) => {
                         <Selector 
                             book={properties}
                             shelf={properties.shelf}
+                            onToggle={showAlert}
                         />
                     </div>       
                 </div>
@@ -34,6 +47,11 @@ const BookDetail = ({ properties }) => {
                 <div className="book-authors">
                     published by {properties.publisher}
                 </div>
+                <Alert 
+                    title={properties.title}
+                    shelf={properties.shelf}
+                    isVisible={isVisible}
+                />
             </div>    
         </>
     )

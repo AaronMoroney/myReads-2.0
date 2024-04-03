@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom'
 
 import '../../../App.css'
 
-const SearchBar = ({handleInputChange}) => {
+const SearchBar = ({handleInputChange, query}) => {
   return (
     <>
       <div className="search-books">
@@ -18,7 +18,8 @@ const SearchBar = ({handleInputChange}) => {
             <input
               onChange={handleInputChange}
               type="text"
-              placeholder="Search by title, author, or ISBN"
+              placeholder={query ? query : "Search by title, author, or ISBN"}
+              value={query ? query : ""}
             />
           </div>
         </div>

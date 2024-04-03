@@ -13,7 +13,6 @@ export function useSearch() {
     localStorage.setItem('storedQuery', newQuery);
   },[])
 
-  //problem is here
   const onSearch = useCallback(async () => {
     if(query === null) {
       return
@@ -39,13 +38,13 @@ export function useSearch() {
 
  return useMemo (
     () => ({
-        onSearch, 
-        onQueryType,
-        setQuery, 
-        result, 
-        errorState, 
-        query, 
+      onSearch, 
+      onQueryType,
+      setQuery, 
+      result, 
+      errorState, 
+      query, 
     }), 
-    [onSearch, setQuery, onQueryType, result, errorState, query ]
+    [onSearch, setQuery, onQueryType, result, errorState, query]
   ) 
 }
