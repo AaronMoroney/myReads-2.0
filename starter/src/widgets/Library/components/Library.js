@@ -4,7 +4,8 @@ import '../../../css/App.css';
 import { Shelf } from '../../../features/bookshelf'
 import { ActionButton } from '../../../shared/ui';
 import { SelectorContext } from '../../../shared/context/SelectorContext.js';
-import { Goal } from '../../../features/goal/index.js'
+import { Goal } from '../../Goal';
+
 const Library = () => {
     // move into hooks 
     const { shelfState } = useContext(SelectorContext);
