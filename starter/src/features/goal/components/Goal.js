@@ -1,6 +1,4 @@
-import { useState, useRef, useContext } from 'react';
-
-
+import { useState, useContext } from 'react';
 import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar'; //Library imports - https://www.npmjs.com/package/react-circular-progressbar
 import 'react-circular-progressbar/dist/styles.css';
 import TuneIcon from '@mui/icons-material/Tune'; //Icon library import - https://mui.com/material-ui/material-icons/?query=options
@@ -10,24 +8,36 @@ import { SelectorContext } from '../../book/context/SelectorContext';
 
 const Goal = () => {
     const [editing, setIsEditing] = useState(false);
-    const inputRef = useRef(null);
+
+    const getFromLocalStorage = () => {
+        let found = localStorage.getItem('goal');
+        return found === null ? 0 : found;
+    }
+
+    const [bookGoal, setBookGoal] = useState(getFromLocalStorage());
 
     const { shelfState} = useContext(SelectorContext);
     const read  = shelfState?.filter(book => book.shelf === 'read');
-    console.log(read);
 
-    let goal = 5
-    let value =  read.length / goal  * 100;
+    let value = bookGoal === 0 ? 0 : Math.min(100, Math.round(read.length / bookGoal * 100));
 
-    const  handleEdit = () => {
+    const  handleOpenEdit = () => {
         setIsEditing(true);
     };
-
+    const  handleCloseEdit = () => {
+        setIsEditing(false);
+    };
+    const increaseGoal = () => {
+        setBookGoal(prevgoal => prevgoal + 1)
+    }
+    const decreaseGoal = () => {
+        setBookGoal(prevgoal => prevgoal - 1)
+    }
     const saveGoalSettings = () => {
-        localStorage.setItem('goal', inputRef);
+        localStorage.setItem('goal', bookGoal);
         setIsEditing(false);
     }
-
+    
     return (
         <div className='bookshelf goal-background'>
             <header className='goal-header' >
@@ -37,28 +47,42 @@ const Goal = () => {
                 </div>
                 <button 
                     className='button'
-                    onClick={handleEdit}
+                    onClick={handleOpenEdit}
                 >
                     <TuneIcon />
                 </button>
             </header>
             <div className='goal-container'>
-            { editing &&
-                (
-                    <input
-                        inputRef={inputRef}
-                        type="text"
-                        label='So, how many books this year? 🤓'
+            {editing && (
+                <div className="modal-overlay" 
+                    onClick={handleCloseEdit}
+                >
+                    <div 
+                        className="modal-content" 
+                        onClick={e => e.stopPropagation()}
                     >
-                        <button
-                            onClick={saveGoalSettings}
-                        />
-                    </input>
-                ) 
-            }
+                        <div>
+                            <button onClick={decreaseGoal}>-</button>
+                            <input
+                                type="text"
+                                aria-label='Book goal'
+                                value={bookGoal}
+                                readOnly
+                            />
+                            <button onClick={increaseGoal}>+</button>
+                            <button
+                                className="button-modal" 
+                                onClick={saveGoalSettings}
+                            >
+                                Save
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
                 <section className='progress-container'>
                     <CircularProgressbarWithChildren
-                        value={value}
+                        value={value === Infinity ? 0 : value}
                         circleRatio={0.5}
                         styles={buildStyles({
                             pathColor: `rgba(248, 191, 48, ${100})`,
@@ -68,8 +92,8 @@ const Goal = () => {
                         })}
                     >
                         <div className='progress-bar-info'>
-                            <h2 className='progress-bar-info-title'>{`${value}%`}</h2>
-                            <p>{`completed of  ${goal} book goal`}</p>
+                            <h2 className='progress-bar-info-title'>{`${value === Infinity ? 0 : value}%`}</h2>
+                            <p>{`completed of  ${bookGoal} book goal`}</p>
                         </div>
                     </CircularProgressbarWithChildren>
                 </section>
