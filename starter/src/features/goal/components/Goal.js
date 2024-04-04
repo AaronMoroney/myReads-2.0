@@ -3,17 +3,20 @@ import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-pro
 import 'react-circular-progressbar/dist/styles.css';
 import TuneIcon from '@mui/icons-material/Tune'; //Icon library import - https://mui.com/material-ui/material-icons/?query=options
 
-import '../../../App.css';
-import { SelectorContext } from '../../book/context/SelectorContext';
+import '../../../css/App.css';
+import { SelectorContext } from '../../../shared/context/SelectorContext';
 
 const Goal = () => {
+    //move Goal into its own widget, then refactor
     const [editing, setIsEditing] = useState(false);
 
+    //move into helpers
     const getFromLocalStorage = () => {
         let found = localStorage.getItem('goal');
         return found === null ? 0 : found;
     }
 
+    //move up
     const [bookGoal, setBookGoal] = useState(getFromLocalStorage());
 
     const { shelfState} = useContext(SelectorContext);
@@ -21,6 +24,7 @@ const Goal = () => {
 
     let value = bookGoal === 0 ? 0 : Math.min(100, Math.round(read.length / bookGoal * 100));
 
+    //move into helpers
     const  handleOpenEdit = () => {
         setIsEditing(true);
     };
@@ -53,6 +57,8 @@ const Goal = () => {
                 </button>
             </header>
             <div className='goal-container'>
+
+            {/* own component */}
             {editing && (
                 <div className="modal-overlay" 
                     onClick={handleCloseEdit}
@@ -81,6 +87,7 @@ const Goal = () => {
                 </div>
             )}
                 <section className='progress-container'>
+                    {/* own component */}
                     <CircularProgressbarWithChildren
                         value={value === Infinity ? 0 : value}
                         circleRatio={0.5}

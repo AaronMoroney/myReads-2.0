@@ -1,1 +1,1 @@
-export {default as Goal} from './components/Goal';
+export {default as Goal} from './components/Goal.js'

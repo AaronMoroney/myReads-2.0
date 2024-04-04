@@ -1,6 +1,6 @@
 import React from 'react'
 
-import '../../../App.css'
+import '../../../css/App.css'
 import { Book } from '../../book'
 
 const Results = ({result, errorState}) => {

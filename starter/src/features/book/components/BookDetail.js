@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
-import '../../../App.css'
-import Alert from '../../alert/Alert';
+import '../../../css/App.css'
+import Alert from '../../alert/components/Alert';
 import Selector from './Selector'
 
 const BookDetail = ({ properties }) => {

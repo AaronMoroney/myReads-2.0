@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
-import '../../../App.css';
-import { Selector  } from '../index';
+import '../../../css/App.css'
+import { Selector } from '../index';
 
 const Book = ({ properties }) => {
     return (
