@@ -4,7 +4,7 @@ import '../../../App.css';
 import { Shelf } from '../../../features/bookshelf'
 import { ActionButton } from '../../../shared/ui';
 import { SelectorContext } from '../../../features/book/context/SelectorContext.js';
-
+import { Goal } from '../../../features/goal/'
 const Library = () => {
     // move into hooks 
     const { shelfState } = useContext(SelectorContext);
@@ -39,6 +39,9 @@ const Library = () => {
                         shelfName={'Read'}
                         properties={read}
                     />
+                    <div className='widget-container'>
+                        <Goal />
+                    </div>
                   </div>
                 </div>
             </div> 
