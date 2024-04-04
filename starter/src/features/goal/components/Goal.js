@@ -1,17 +1,23 @@
-import { useState, useRef } from 'react';
-//library imports
-import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar';
+import { useState, useRef, useContext } from 'react';
+
+
+import { CircularProgressbarWithChildren, buildStyles } from 'react-circular-progressbar'; //Library imports - https://www.npmjs.com/package/react-circular-progressbar
 import 'react-circular-progressbar/dist/styles.css';
-//Icon library import
-import TuneIcon from '@mui/icons-material/Tune';
+import TuneIcon from '@mui/icons-material/Tune'; //Icon library import - https://mui.com/material-ui/material-icons/?query=options
 
 import '../../../App.css';
+import { SelectorContext } from '../../book/context/SelectorContext';
+
 const Goal = () => {
     const [editing, setIsEditing] = useState(false);
     const inputRef = useRef(null);
 
+    const { shelfState} = useContext(SelectorContext);
+    const read  = shelfState?.filter(book => book.shelf === 'read');
+    console.log(read);
+
     let goal = 5
-    let value = 80
+    let value =  read.length / goal  * 100;
 
     const  handleEdit = () => {
         setIsEditing(true);
@@ -55,15 +61,15 @@ const Goal = () => {
                         value={value}
                         circleRatio={0.5}
                         styles={buildStyles({
-                            pathColor: `rgba(248, 191, 48, ${value/ 100})`,
-                            rotation: 5/8 + 1 / 8,
+                            pathColor: `rgba(248, 191, 48, ${100})`,
+                            rotation: 5/8 + 1 / 8, //this shows the ratation of the progress bar
                             strokeLinecap: "round",
                             trailColor: "#eee"
                         })}
                     >
                         <div className='progress-bar-info'>
                             <h2 className='progress-bar-info-title'>{`${value}%`}</h2>
-                            <p>{`of your ${goal} book goal`}</p>
+                            <p>{`completed of  ${goal} book goal`}</p>
                         </div>
                     </CircularProgressbarWithChildren>
                 </section>
