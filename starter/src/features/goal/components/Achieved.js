@@ -15,7 +15,6 @@ const config = {
 };
 
 const Achieved = ({ achievedValue }) => {
-  console.log('achievedValue', achievedValue);
   return <Confetti active={ achievedValue === 100 ? true : false } config={ config }/>
 }
 

@@ -1,4 +1,4 @@
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 
 import '../../../css/App.css';
 import { SelectorContext } from '../../../shared/context/SelectorContext';
@@ -17,7 +17,6 @@ const Goal = () => {
 
     const read = shelfState?.filter(book => book.shelf === 'read');
     const value = bookGoal === 0 ? 0 : Math.min(100, Math.round(read.length / bookGoal * 100));
-   
     
     //move into helpers
     const  handleOpenEdit = () => {
@@ -29,6 +28,10 @@ const Goal = () => {
         setAchievedValue(value);
         setIsEditing(false); 
     }
+
+    useEffect(() => {
+        setAchievedValue(value);
+    }, [value]);
     
     return (
         <div className='bookshelf goal-background'>
