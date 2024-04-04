@@ -1,24 +1,12 @@
-import { useState, useEffect, useContext} from 'react'
-
 import '../../../css/App.css';
 import { Shelf } from '../../../features/bookshelf'
 import { ActionButton } from '../../../shared/ui';
-import { SelectorContext } from '../../../shared/context/SelectorContext.js';
+
 import { Goal } from '../../Goal';
+import { useBookShelves } from '../hooks/useLibrary';
 
 const Library = () => {
-    // move into hooks 
-    const { shelfState } = useContext(SelectorContext);
-
-    const [read, setRead] = useState([]);
-    const [current, setCurrent] = useState([]);
-    const [want, setWant] = useState([]);
-
-    useEffect(() => {
-        setRead(shelfState?.filter(book => book.shelf === 'read'));
-        setCurrent(shelfState?.filter(book => book.shelf === 'currentlyReading'));
-        setWant(shelfState?.filter(book => book.shelf === 'wantToRead'));
-    }, [shelfState]);
+    const { read, want, current } = useBookShelves();
 
     return (
         <>
