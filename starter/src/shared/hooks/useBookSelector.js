@@ -1,6 +1,6 @@
 import {useCallback, useMemo} from 'react'
 
-import { update, getAll } from '../../BooksAPI';
+import { update, getAll } from '../api/BooksAPI';
 // import { SelectorContext } from '../../features/book/context/SelectorContext';
 
 

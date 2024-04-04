@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 
-import '../../../App.css';
+import '../../../css/App.css';
 import { BookDetail } from '../../../features/book'
 import { ActionButton } from '../../../shared/ui';
 

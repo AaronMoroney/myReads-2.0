@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 
-import '../../../App.css'
-import { SelectorContext } from '../context/SelectorContext.js';
+import '../../../css/App.css'
+import { SelectorContext } from '../../../shared/context/SelectorContext.js'
 import { useBookSelector } from '../../../shared/hooks/useBookSelector.js'
-import { getAll } from '../../../BooksAPI.js';
+import { getAll } from '../../../shared/api/BooksAPI.js';
 import Spinner from '../../../shared/ui/components/Spinner.js';
 
 const Selector = ({ book, shelf, onToggle }) => {

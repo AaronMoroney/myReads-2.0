@@ -1,6 +1,6 @@
 import {useState, useCallback, useMemo } from 'react'
 
-import { search } from '../../../BooksAPI';
+import { search } from '../../../shared/api/BooksAPI';
 
 export function useSearch() {
   const [query, setQuery] = useState(localStorage.getItem('storedQuery')) //initialised with ''

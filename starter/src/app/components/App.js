@@ -1,12 +1,12 @@
 import { Route, Routes} from 'react-router-dom'
 import { useEffect, useState} from 'react';
 
-import '../../App.css';
-import { SelectorContext } from '../../features/book/context/SelectorContext.js';
+import '../../css/App.css';
+import { SelectorContext } from '../../shared/context/SelectorContext.js';
 import  Library  from '../../widgets/Library/components/Library.js';
 import  Search from '../../widgets/Search/components/Search.js'
 import  SingleBook  from '../../widgets/SingleBook/components/SingleBook.js';
-import { getAll } from '../../BooksAPI.js';
+import { getAll } from '../../shared/api/BooksAPI.js';
 
 function App() {
   const [shelfState, setShelfState] = useState([]);
