@@ -13,15 +13,15 @@ const Goal = () => {
     const [bookGoal, setBookGoal] = useState(getFromLocalStorage());
     const [achievedValue, setAchievedValue] = useState(0)
 
-    const { shelfState} = useContext(SelectorContext);
+    const { read } = useContext(SelectorContext);
     
-    const value = calculateProgress(shelfState, bookGoal);
+    const value = calculateProgress(read, bookGoal);
 
-    const  handleOpenEdit = () => {
+    const handleOpenEdit = () => {
         setIsEditing(true);
     };
     
-    const handleSaveGoalSettings =()=> {
+    const handleSaveGoalSettings = () => {
         localStorage.setItem('goal', bookGoal);
         setAchievedValue(value);
         setIsEditing(false); 
