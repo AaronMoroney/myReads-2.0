@@ -1,13 +1,13 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState, memo } from 'react';
 
 import '../../../css/App.css'
 import { SelectorContext } from '../../../shared/context/SelectorContext.js'
-import { useBookSelector } from '../../../shared/hooks/useBookSelector.js'
-import { getAll } from '../../../shared/api/BooksAPI.js';
+import { useBookSelector } from '../hooks/useBookSelector.js'
 import Spinner from '../../../shared/ui/components/Spinner.js';
 
-const Selector = ({ book, shelf, onToggle }) => {
-    const { shelfState, setShelfState } = useContext(SelectorContext);
+const Selector = memo(({ book, shelf ,showAlert }) => {
+    const { read, wantToRead, currentlyReading } = useContext(SelectorContext);
+    
     const [ stageUpdate, setStageUpdate ] = useState('');
     const [ isLoading, setIsLoading ] = useState(false);
 
@@ -19,25 +19,26 @@ const Selector = ({ book, shelf, onToggle }) => {
     
     useEffect(() => {
         const updateShelf = async () => {
+          setIsLoading(true);
           try {
-            setIsLoading(true); // Start loading
             await onUpdateSelector(book, stageUpdate);
-            let result = await getAll();
-            await setShelfState(result); 
-            onToggle();
+            if (showAlert) {
+                showAlert();
+            }
           } catch (error) {
             console.error('Error updating shelf:', error);
           } finally {
             setIsLoading(false)
           }
         };
-
         if (stageUpdate) {
           updateShelf();
         }
-    }, [book, shelf, onUpdateSelector, stageUpdate, setShelfState]);
-   
-    const matchingBook = shelfState.find(bookOnShelf => bookOnShelf.id === book.id);
+        
+    }, [book, stageUpdate, onUpdateSelector, showAlert ]);
+
+    const shelves = [...wantToRead, ...read, ...currentlyReading];
+    const matchingBook = shelves.find(bookOnShelf => bookOnShelf.id === book.id);
 
     if (isLoading) {
         return <Spinner/>; 
@@ -66,30 +67,6 @@ const Selector = ({ book, shelf, onToggle }) => {
             </div>
         </>
     )
-} 
+}) 
 
 export default Selector
-
- // useEffect(() => {
-    //     const updateShelf = async () => {
-    //       try {
-    //         //start loading state
-    //         setIsLoading(true); 
-    //         //updates
-    //         await onUpdateSelector(book, stageUpdate);
-    //         let result = await getAll();
-    //         setShelfState(result); 
-    //         //alert
-    //         onToggle();
-    //       } catch (error) {
-    //         console.error('Error updating shelf:', error);
-    //       } finally {
-    //         //remove loading state
-    //         setIsLoading(false)
-    //       }
-    //     };
-
-    //     if (stageUpdate) {
-    //       updateShelf();
-    //     }
-    // }, [book, shelf, onUpdateSelector, stageUpdate, setShelfState]);

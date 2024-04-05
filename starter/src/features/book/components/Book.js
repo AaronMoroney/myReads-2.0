@@ -1,9 +1,10 @@
 import { Link } from 'react-router-dom'
+import { memo } from 'react'
 
 import '../../../css/App.css'
-import { Selector } from '../index';
+import { Selector } from '../../selector'
 
-const Book = ({ properties }) => {
+const Book = memo(({ properties }) => {
     return (
         <>
             <div className="book">
@@ -38,6 +39,6 @@ const Book = ({ properties }) => {
             </div>
         </>
     )
-}
+});
 
 export default Book

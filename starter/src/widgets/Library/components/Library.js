@@ -1,41 +1,42 @@
+import { useContext } from 'react';
+
 import '../../../css/App.css';
+import { Goal } from '../../Goal';
 import { Shelf } from '../../../features/bookshelf'
 import { ActionButton } from '../../../shared/ui';
-
-import { Goal } from '../../Goal';
-import { useBookShelves } from '../hooks/useLibrary';
+import { SelectorContext } from '../../../shared/context/SelectorContext';
 
 const Library = () => {
-    const { read, want, current } = useBookShelves();
+    const { currentlyReading, wantToRead, read } = useContext(SelectorContext);
 
     return (
         <>
             <div className="list-books">
                 <div className="list-books-title">
-                  <h1>MyReads</h1>
+                    <h1>MyReads</h1>
                 </div>
                 <div className="list-books-content">
-                  <div>
-                    <Shelf 
-                        shelfName={'Currently Reading'}
-                        properties={current}
-                    />
-                    <Shelf 
-                        shelfName={'Want To read'}
-                        properties={want}
-                    />
-                    <Shelf 
-                        shelfName={'Read'}
-                        properties={read}
-                    />
-                    <div className='widget-container'>
-                        <Goal />
+                    <div>
+                        <Shelf 
+                            shelfName={'Currently Reading'}
+                            properties={currentlyReading}
+                        />
+                        <Shelf 
+                            shelfName={'Want To read'}
+                            properties={wantToRead}
+                        />
+                        <Shelf 
+                            shelfName={'Read'}
+                            properties={read}
+                        />
+                        <div className='widget-container'>
+                            <Goal />
+                        </div>
                     </div>
-                  </div>
                 </div>
             </div> 
             <ActionButton />
-        </>
+        </>     
     )
 }
 

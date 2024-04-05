@@ -1,20 +1,29 @@
-import { useState, useEffect, useContext} from 'react';
+import { useState, useEffect, useMemo} from 'react';
 
-import { SelectorContext } from '../../../shared/context/SelectorContext';
-
-export const useBookShelves = () => {
-    // move into hooks 
-    const { shelfState } = useContext(SelectorContext);
-
+export const useBookShelves = (shelfState) => {
     const [read, setRead] = useState([]);
-    const [current, setCurrent] = useState([]);
-    const [want, setWant] = useState([]);
+    const [currentlyReading, setCurrentlyReading] = useState([]);
+    const [wantToRead, setWantToRead] = useState([]);
 
     useEffect(() => {
         setRead(shelfState?.filter(book => book.shelf === 'read'));
-        setCurrent(shelfState?.filter(book => book.shelf === 'currentlyReading'));
-        setWant(shelfState?.filter(book => book.shelf === 'wantToRead'));
+        setCurrentlyReading(shelfState?.filter(book => book.shelf === 'currentlyReading'));
+        setWantToRead(shelfState?.filter(book => book.shelf === 'wantToRead'));
     }, [shelfState]);
 
-    return { read, current, want};
+    // const shelves = [read: read, currentlyReading, wantToRead];
+
+    // console.log(shelves);
+
+    return useMemo (
+        () => ({
+            read, 
+            currentlyReading, 
+            wantToRead, 
+            setRead, 
+            setCurrentlyReading, 
+            setWantToRead, 
+        }), 
+        [ read, setRead, wantToRead, setWantToRead,  currentlyReading, setCurrentlyReading ]
+    ) 
 }

@@ -1,18 +1,10 @@
-import { useState } from 'react';
-
 import '../../../css/App.css'
 import Alert from '../../alert/components/Alert';
-import Selector from './Selector'
+import { Selector } from '../../selector';
+import { useAlert } from '../../alert/hooks/useAlert';
 
 const BookDetail = ({ properties }) => {
-    const [isVisible, setIsVisible] = useState('');
-
-    const showAlert = () => {
-        setIsVisible(true);
-        setTimeout(() => {
-            setIsVisible(false);
-        }, 3000);
-    }
+    const { showAlert, isVisible } = useAlert();
 
     return (
         <>
@@ -30,7 +22,7 @@ const BookDetail = ({ properties }) => {
                         <Selector 
                             book={properties}
                             shelf={properties.shelf}
-                            onToggle={showAlert}
+                            showAlert={showAlert}
                         />
                     </div>       
                 </div>

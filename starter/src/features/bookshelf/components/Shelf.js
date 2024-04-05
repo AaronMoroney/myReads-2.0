@@ -1,7 +1,8 @@
-//imports
+import { memo } from 'react';
+
 import { Book } from '../../book/';
 
-const Shelf = ({ shelfName, properties }) => {
+const Shelf = memo(({ shelfName, properties }) => {
   return (
     <div>
       <div className="bookshelf">
@@ -25,6 +26,6 @@ const Shelf = ({ shelfName, properties }) => {
       </div> 
     </div>
   )
-}
+});
 
 export default Shelf
