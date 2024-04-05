@@ -1,4 +1,4 @@
-import {useCallback, useMemo, useState} from 'react'
+import { useCallback, useMemo, useState } from 'react'
 
 export function useAlert() {
   const [isVisible, setIsVisible] = useState('');
