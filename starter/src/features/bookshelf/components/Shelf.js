@@ -3,6 +3,7 @@ import { memo } from 'react';
 import { Book } from '../../book/';
 
 const Shelf = memo(({ shelfName, properties }) => {
+  console.log('shelf');
   return (
     <div>
       <div className="bookshelf">

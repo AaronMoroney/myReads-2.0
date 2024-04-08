@@ -5,6 +5,8 @@ import '../../../css/App.css'
 import { Selector } from '../../selector'
 
 const Book = memo(({ properties }) => {
+
+    console.log('book');
     return (
         <>
             <div className="book">

@@ -7,8 +7,7 @@ import { ActionButton } from '../../../shared/ui';
 import { SelectorContext } from '../../../shared/context/SelectorContext';
 
 const Library = () => {
-    const { currentlyReading, wantToRead, read } = useContext(SelectorContext);
-
+    const { shelfState } = useContext(SelectorContext);
     return (
         <>
             <div className="list-books">
@@ -19,15 +18,15 @@ const Library = () => {
                     <div>
                         <Shelf 
                             shelfName={'Currently Reading'}
-                            properties={currentlyReading}
+                            properties={shelfState.currentlyReading}
                         />
                         <Shelf 
                             shelfName={'Want To read'}
-                            properties={wantToRead}
+                            properties={shelfState.wantToRead}
                         />
                         <Shelf 
                             shelfName={'Read'}
-                            properties={read}
+                            properties={shelfState.read}
                         />
                         <div className='widget-container'>
                             <Goal />
