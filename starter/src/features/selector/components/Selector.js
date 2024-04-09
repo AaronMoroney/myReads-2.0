@@ -3,10 +3,9 @@ import { memo,  useEffect, useState }  from 'react';
 import '../../../css/App.css'
 import { useBookSelector } from '../../selector/hooks/useBookSelector'
 
-const Selector = memo(({ properties, showAlert, shelfState }) => {
+const Selector = memo(({ properties, showAlert }) => {
     const {  onUpdateShelf } = useBookSelector();
     const [ stageUpdate, setStageUpdate ] = useState(null);
-    const [ activeShelf, setActiveShelf ] = useState('');
 
     //set the new target shelf
     const handleChange = async(e) => {
@@ -18,24 +17,12 @@ const Selector = memo(({ properties, showAlert, shelfState }) => {
             onUpdateShelf(properties, stageUpdate, showAlert);
         }      
     }, [onUpdateShelf, properties, stageUpdate, showAlert])
- 
-    useEffect(() => {
-        //set the active shelf 
-        if(Array.isArray(shelfState[stageUpdate])) {
-            setActiveShelf(shelfState[stageUpdate].find(stage => 
-                stage.id === properties.id
-            ));
-        } 
-        // else {
-        //     setActiveShelf(shelfState)
-        // }
-    }, [shelfState, stageUpdate, properties.id])
 
     return (
         <>
             <div className="book-shelf-changer">
                 <select 
-                    value={ stageUpdate !== null ? activeShelf.shelf : properties.shelf }
+                    value={ stageUpdate !== null ? stageUpdate : properties.shelf }
                     onChange={ handleChange }
                 >
                     <option value="none">

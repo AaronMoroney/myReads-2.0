@@ -20,8 +20,7 @@ const BookDetail = ({ properties }) => {
                     /> 
                     <div>
                         <Selector 
-                            book={properties}
-                            shelf={properties.shelf}
+                            properties={properties}
                             showAlert={showAlert}
                         />
                     </div>       
