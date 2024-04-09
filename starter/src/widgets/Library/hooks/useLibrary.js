@@ -11,10 +11,6 @@ export const useBookShelves = (shelfState) => {
         setWantToRead(shelfState?.filter(book => book.shelf === 'wantToRead'));
     }, [shelfState]);
 
-    // const shelves = [read: read, currentlyReading, wantToRead];
-
-    // console.log(shelves);
-
     return useMemo (
         () => ({
             read, 

@@ -1,55 +1,29 @@
-import { useContext, useEffect, useState, memo } from 'react';
+import { memo,  useEffect, useState }  from 'react';
 
 import '../../../css/App.css'
-import { SelectorContext } from '../../../shared/context/SelectorContext.js'
-import { useBookSelector } from '../hooks/useBookSelector.js'
-import Spinner from '../../../shared/ui/components/Spinner.js';
+import { useBookSelector } from '../../selector/hooks/useBookSelector'
 
-const Selector = memo(({ book, shelf ,showAlert }) => {
-    const { read, wantToRead, currentlyReading } = useContext(SelectorContext);
-    
-    const [ stageUpdate, setStageUpdate ] = useState('');
-    const [ isLoading, setIsLoading ] = useState(false);
+const Selector = memo(({ properties, showAlert }) => {
+    const {  onUpdateShelf } = useBookSelector();
+    const [ stageUpdate, setStageUpdate ] = useState(null);
 
-    const { onUpdateSelector } = useBookSelector();
-
-    const handleChange = async (e) => {
+    //set the new target shelf
+    const handleChange = async(e) => {
         setStageUpdate(e.target.value);
     };
     
     useEffect(() => {
-        const updateShelf = async () => {
-          setIsLoading(true);
-          try {
-            await onUpdateSelector(book, stageUpdate);
-            if (showAlert) {
-                showAlert();
-            }
-          } catch (error) {
-            console.error('Error updating shelf:', error);
-          } finally {
-            setIsLoading(false)
-          }
-        };
         if (stageUpdate) {
-          updateShelf();
-        }
-        
-    }, [book, stageUpdate, onUpdateSelector, showAlert ]);
-
-    const shelves = [...wantToRead, ...read, ...currentlyReading];
-    const matchingBook = shelves.find(bookOnShelf => bookOnShelf.id === book.id);
-
-    if (isLoading) {
-        return <Spinner/>; 
-    }
+            onUpdateShelf(properties, stageUpdate, showAlert);
+        }      
+    }, [onUpdateShelf, properties, stageUpdate, showAlert])
 
     return (
         <>
             <div className="book-shelf-changer">
                 <select 
-                    value={matchingBook ? matchingBook.shelf : 'none'}
-                    onChange={handleChange}
+                    value={ stageUpdate !== null ? stageUpdate : properties.shelf }
+                    onChange={ handleChange }
                 >
                     <option value="none">
                         Move to...

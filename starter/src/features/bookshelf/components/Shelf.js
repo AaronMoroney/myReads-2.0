@@ -11,7 +11,7 @@ const Shelf = memo(({ shelfName, properties }) => {
           <ol className="books-grid">
             {
               properties.map(( book ) => {
-                //each book will receive an obj w/ its properties
+                //each book will receive its properties
                 return (
                   <li key={ book.id }>
                     <Book 
