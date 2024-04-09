@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom'
-import { memo } from 'react'
+import { memo, useContext } from 'react'
 
 import '../../../css/App.css'
 import { Selector } from '../../selector'
+import { SelectorContext } from '../../../shared/context/SelectorContext'
 
 const Book = memo(({ properties }) => {
-
-    console.log('book');
+    const { shelfState } = useContext(SelectorContext);
+    console.log(shelfState);
+    console.log(properties);
     return (
         <>
             <div className="book">
@@ -27,16 +29,16 @@ const Book = memo(({ properties }) => {
                 </Link>
                 <div>
                     <Selector 
-                        book={properties}
-                        shelf={properties.shelf}
+                       properties={ properties }
+                       shelfState={ shelfState }
                     />
                 </div>       
                 </div>
                 <div className="book-title">
-                    {properties.title}
+                    { properties.title }
                 </div>
                 <div className="book-authors">
-                    {properties.authors}
+                    { properties.authors }
                 </div>
             </div>
         </>

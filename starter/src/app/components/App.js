@@ -9,7 +9,7 @@ import  Search from '../../widgets/Search/components/Search.js'
 import  SingleBook  from '../../widgets/SingleBook/components/SingleBook.js';
 
 function App() {
-  const [shelfState, setShelfState] = useState({ read: [], currentlyReading: [],  wantToRead: [] });
+  const [ shelfState, setShelfState ] = useState({ read: [], currentlyReading: [],  wantToRead: [] });
 
   useEffect(() => {
     async function fetchData() {
@@ -22,10 +22,10 @@ function App() {
     fetchData();
   }, []);
 
-  const contextValue = useMemo(() => ({shelfState , setShelfState}), 
-    [shelfState, setShelfState]
+  const contextValue = useMemo(() => ({ shelfState , setShelfState }), 
+    [ shelfState,  setShelfState ]
   );
-
+  
   return (
     <SelectorContext.Provider value={contextValue}>
        <div className="app">

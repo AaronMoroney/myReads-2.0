@@ -1,44 +1,42 @@
-import { useEffect, useState, memo } from 'react';
+import { memo,  useEffect, useState }  from 'react';
 
 import '../../../css/App.css'
-import { update } from '../../../shared/api/BooksAPI.js';
-import { useBookSelector } from '../hooks/useBookSelector.js'
+import { useBookSelector } from '../../selector/hooks/useBookSelector'
 
-const Selector = memo(({ book, shelf, showAlert }) => {
-    const [ stageUpdate, setStageUpdate ] = useState('');
+const Selector = memo(({ properties, showAlert, shelfState }) => {
+    const {  onUpdateShelf } = useBookSelector();
+    const [ stageUpdate, setStageUpdate ] = useState(null);
+    const [ activeShelf, setActiveShelf ] = useState('');
 
-    const { onUpdateSelector, onRemoveSelector } = useBookSelector();
-
-    const handleChange = async (e) => {
+    //set the new target shelf
+    const handleChange = async(e) => {
         setStageUpdate(e.target.value);
     };
     
     useEffect(() => {
-        const updateShelf = async () => {
-            try {
-                //immediately updates
-                onRemoveSelector(book, stageUpdate);
-                onUpdateSelector(book, stageUpdate);
-                //persists
-                update(book, stageUpdate);
-                if (showAlert) {
-                    showAlert();
-                }
-            } catch (error) {
-                console.error('Error updating shelf:', error);
-            };
-        }
         if (stageUpdate) {
-            updateShelf();
+            onUpdateShelf(properties, stageUpdate, showAlert);
         }      
-    }, [book, stageUpdate, showAlert]);
+    }, [onUpdateShelf, properties, stageUpdate, showAlert])
+ 
+    useEffect(() => {
+        //set the active shelf 
+        if(Array.isArray(shelfState[stageUpdate])) {
+            setActiveShelf(shelfState[stageUpdate].find(stage => 
+                stage.id === properties.id
+            ));
+        } 
+        // else {
+        //     setActiveShelf(shelfState)
+        // }
+    }, [shelfState, stageUpdate, properties.id])
 
     return (
         <>
             <div className="book-shelf-changer">
                 <select 
-                    value={shelf}
-                    onChange={handleChange}
+                    value={ stageUpdate !== null ? activeShelf.shelf : properties.shelf }
+                    onChange={ handleChange }
                 >
                     <option value="none">
                         Move to...
